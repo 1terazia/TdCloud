@@ -1,0 +1,6 @@
+# ignore build directory
+build/
+# ignore pre-build td library
+tdlib/
+# ignore cache files
+.cache/
