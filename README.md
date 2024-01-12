@@ -1,4 +1,4 @@
-# TdCloud <img src="logo.jpeg" width=40 height=40>
+# TdCloud <img src="images/logo.jpeg" width=40 height=40>
 
 ## Introduction
 Recently I faced with problem: the amount of memory in my iCloud and Google Drive is less than 15Gb. So, it's hard to back up even photos. 
