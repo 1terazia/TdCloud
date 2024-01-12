@@ -9,7 +9,7 @@ This inspired me to implement CLI script, which could back up any folders and fi
 <Enter TdCloud directory>
 $ mkdir build
 $ cd build
-$ cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DTD_ENABLE_LTO=ON ..
+$ cmake -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DTD_ENABLE_LTO=ON ../td
 $ cmake --build . --target install
 $ cd ../cpp
 $ mkdir build
