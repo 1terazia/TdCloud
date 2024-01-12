@@ -4,3 +4,5 @@ build/
 tdlib/
 # ignore cache files
 .cache/
+# vscode settings
+.vscode/
