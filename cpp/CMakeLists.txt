@@ -4,6 +4,7 @@ project(TdCloud VERSION 1.0 LANGUAGES CXX)
 
 find_package(Td 1.8.23 REQUIRED)
 find_package(Boost 1.40 COMPONENTS filesystem REQUIRED)
+find_package (glog 0.6.0 REQUIRED)
 include_directories( ${Boost_INCLUDE_DIR} )
 add_executable(td_cloud main.cpp TdCloud.cpp)
 target_link_libraries(td_cloud PRIVATE Td::TdStatic)

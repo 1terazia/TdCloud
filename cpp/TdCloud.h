@@ -6,6 +6,7 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 #pragma once
+#include <glog/logging.h>
 #include <boost/filesystem/operations.hpp>
 #include <cstdint>
 #include <functional>
@@ -50,8 +51,8 @@ public:
     void GetMyInfo();
     void LogOut();
     void LoadChats();
-    void SendFile(std::int64_t& chat_id, const std::string& path);
-    void SendDir(std::int64_t& chat_id, const std::string& path);
+    void SendFile(const std::int64_t& chat_id, const std::string& path);
+    void SendDir(const std::int64_t& chat_id, const std::string& path);
     void loop();
 
 private:
@@ -94,4 +95,6 @@ private:
 
     std::uint64_t next_query_id() { return ++current_query_id_; }
     void scan_dir(const std::string& path, std::vector<std::string>& files);
+    void send_files(const std::int64_t& chat_id,
+                    const std::vector<std::string>& files);
 };
