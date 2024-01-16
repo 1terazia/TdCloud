@@ -44,7 +44,7 @@ namespace td_api = td::td_api;
 
 class TdCloud {
 public:
-    TdCloud();
+    TdCloud(const std::string &phone_number, const std::string &password);
     void SendMessage(const std::int64_t& chat_id, const std::string& text);
     void Update();
     void Close();
@@ -67,6 +67,7 @@ private:
     bool need_restart_{false};
     std::uint64_t current_query_id_{0};
     std::uint64_t authentication_query_id_{0};
+    std::string phone_number_, password_;
 
     std::map<std::uint64_t, std::function<void(Object)>> handlers_;
 

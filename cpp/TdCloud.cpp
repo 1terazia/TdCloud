@@ -6,7 +6,9 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 #include "TdCloud.h"
-TdCloud::TdCloud() {
+#include "consts.h"
+TdCloud::TdCloud(const std::string& phone_number, const std::string& password)
+    : phone_number_(phone_number), password_(password) {
     td::ClientManager::execute(
         td_api::make_object<td_api::setLogVerbosityLevel>(1));
     client_manager_ = std::make_unique<td::ClientManager>();
@@ -114,6 +116,7 @@ void TdCloud::loop() {
                 GetMyInfo();
             } else if (action == "l") {
                 LogOut();
+                return;
             } else if (action == "m") {
                 std::int64_t chat_id;
                 std::cin >> chat_id;
@@ -140,7 +143,7 @@ void TdCloud::loop() {
 }
 void TdCloud::restart() {
     client_manager_.reset();
-    *this = TdCloud();
+    *this = TdCloud(phone_number_, password_);
 }
 
 void TdCloud::send_query(td_api::object_ptr<td_api::Function> f,
@@ -206,6 +209,7 @@ void TdCloud::process_update(td_api::object_ptr<td_api::Object> update) {
                 auto user_id = update_user.user_->id_;
                 users_[user_id] = std::move(update_user.user_);
             },
+            /*
             [this](td_api::updateNewMessage& update_new_message) {
                 auto chat_id = update_new_message.message_->chat_id_;
                 std::string sender_name;
@@ -229,6 +233,7 @@ void TdCloud::process_update(td_api::object_ptr<td_api::Object> update) {
                           << "] [from:" << sender_name << "] [" << text << "]"
                           << std::endl;
             },
+            */
             [](auto& update) {}));
 }
 
@@ -262,12 +267,9 @@ void TdCloud::on_authorization_state_update() {
                 std::cout << "Terminated" << std::endl;
             },
             [this](td_api::authorizationStateWaitPhoneNumber&) {
-                std::cout << "Enter phone number: " << std::flush;
-                std::string phone_number;
-                std::cin >> phone_number;
                 send_query(
                     td_api::make_object<td_api::setAuthenticationPhoneNumber>(
-                        phone_number, nullptr),
+                        phone_number_, nullptr),
                     create_authentication_query_handler());
             },
             [this](td_api::authorizationStateWaitEmailAddress&) {
@@ -309,12 +311,9 @@ void TdCloud::on_authorization_state_update() {
                            create_authentication_query_handler());
             },
             [this](td_api::authorizationStateWaitPassword&) {
-                std::cout << "Enter authentication password: " << std::flush;
-                std::string password;
-                std::getline(std::cin, password);
                 send_query(
                     td_api::make_object<td_api::checkAuthenticationPassword>(
-                        password),
+                        password_),
                     create_authentication_query_handler());
             },
             [this](
@@ -328,8 +327,8 @@ void TdCloud::on_authorization_state_update() {
                 request->database_directory_ = "tdlib";
                 request->use_message_database_ = true;
                 request->use_secret_chats_ = true;
-                request->api_id_ = 94575;
-                request->api_hash_ = "a3406de8d171bb422bb6ddf3bbd800e2";
+                request->api_id_ = API_ID;
+                request->api_hash_ = API_HASH;
                 request->system_language_code_ = "en";
                 request->device_model_ = "Desktop";
                 request->application_version_ = "1.0";

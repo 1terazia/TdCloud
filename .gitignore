@@ -6,3 +6,5 @@ tdlib/
 .cache/
 # vscode settings
 .vscode/
+# private api_id and hash_api
+consts.h
