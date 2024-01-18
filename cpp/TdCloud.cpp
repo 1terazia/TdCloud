@@ -7,12 +7,17 @@ void td_cloud::TdCloud::Start(const std::string& path) {
     client_.Update();
     std::cout << "Start with " << my_id << std::endl;
     sync_.SetPath(path);
-    while (true) {
+    bool need_to_exit = false;
+    while (client_.are_authorized_ && !need_to_exit) {
+        if (!std::cin.eof()) {
+            break;
+        }
         sync_.Sync();
-        client_.SendDir(my_id, path);
+        for (const std::string &file : sync_.need_to_send_) {
+            client_.SendFile(my_id, file);
+        }
         client_.Update();
         sync_.Clear();
-        break;
     }
     client_.LogOut();
     client_.Update();
