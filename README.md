@@ -1,4 +1,4 @@
-# TdCloud <img src="images/logo.jpeg" width=40 height=40>
+# TdCloud <img src="images/demo.jpeg" width=40 height=40>
 
 ## Introduction
 Recently I faced with problem: the amount of memory in my iCloud and Google Drive is less than 15Gb. So, it's hard to back up even photos. 
@@ -23,6 +23,8 @@ $ cmake --build .
 - [ ] Improve the build time `cmake --build .`
 - [ ] Add build scheme for other platforms
 - [ ] Add Logging(glog)
+- [ ] Write shell script for easier building
+- [ ] Implement UI using Qt
 ## Libraries
 - TDLib(https://github.com/tdlib/td)
 - boost(boost::filesystem)

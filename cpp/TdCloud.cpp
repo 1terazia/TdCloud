@@ -9,9 +9,6 @@ void td_cloud::TdCloud::Start(const std::string& path) {
     sync_.SetPath(path);
     bool need_to_exit = false;
     while (client_.are_authorized_ && !need_to_exit) {
-        if (!std::cin.eof()) {
-            break;
-        }
         sync_.Sync();
         for (const std::string &file : sync_.need_to_send_) {
             client_.SendFile(my_id, file);

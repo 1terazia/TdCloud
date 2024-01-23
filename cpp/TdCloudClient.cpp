@@ -84,13 +84,14 @@ void td_cloud::TdCloudClient::GetMyInfo() {
         std::cout << to_string(object) << std::endl;
     });
 }
-void td_cloud::TdCloudClient::GetMyID(td_api::int53 &id) {
+void td_cloud::TdCloudClient::GetMyID(td_api::int53& id) {
     std::cout << "Getting info..." << std::endl;
-    send_query(td_api::make_object<td_api::getMe>(), [this, &id](Object object) {
-        auto me = td::move_tl_object_as<td_api::user>(object);
-        std::cout << "ID: " << me->id_ << std::endl;
-        id = me->id_;
-    });
+    send_query(td_api::make_object<td_api::getMe>(),
+               [this, &id](Object object) {
+                   auto me = td::move_tl_object_as<td_api::user>(object);
+                   std::cout << "ID: " << me->id_ << std::endl;
+                   id = me->id_;
+               });
 }
 void td_cloud::TdCloudClient::LogOut() {
     std::cout << "Logging out..." << std::endl;
@@ -121,8 +122,14 @@ void td_cloud::TdCloudClient::SendFile(const std::int64_t& chat_id,
 
     auto local_file = td_api::make_object<td_api::inputFileLocal>();
     local_file->path_ = path;
-    auto file_content = td_api::make_object<td_api::inputMessageDocument>();
+    auto file_content =
+        td_api::make_object<td_api::inputMessageDocument>();
     file_content->document_ = std::move(local_file);
+    auto thumbnail = td_api::make_object<td_api::inputThumbnail>();
+    thumbnail->thumbnail_ = td_api::make_object<td_api::inputFileLocal>(path);
+    thumbnail->height_ = 100;
+    thumbnail->width_ = 100;
+    file_content->thumbnail_ = std::move(thumbnail);
     send_message->input_message_content_ = std::move(file_content);
     send_query(std::move(send_message), {});
 }
