@@ -6,7 +6,7 @@ Although, Telegram has open-source API TDLib, which allow me to send and upload 
 This inspired me to implement CLI script, which could back up any folders and files from laptop, because Telegram has unlimited storage.
 ## Build instruction
 ### MacOs
-Make sure that you've installed boost and glog. Also, if you faced problems while building tdlib  visit [TDLib instruction](https://tdlib.github.io/td/build.html?language=C%2B%2B)
+Make sure that you've installed boost and glog. Also, if you faced problems while building tdlib  visit [TDLib instruction](https://tdlib.github.io/td/build.html?language=C%2B%2B). Also you cab just run mac.sh
 ```
 <Enter TdCloud directory>
 $ mkdir build
@@ -23,7 +23,7 @@ $ cmake --build .
 - [ ] Improve the build time `cmake --build .`
 - [ ] Add build scheme for other platforms
 - [ ] Add Logging(glog)
-- [ ] Write shell script for easier building
+- [x] Write shell script for easier building
 - [ ] Implement UI using Qt
 ## Libraries
 - TDLib(https://github.com/tdlib/td)
