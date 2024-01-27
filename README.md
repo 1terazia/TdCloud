@@ -19,6 +19,19 @@ $ cd build
 $ cmake -DCMAKE_BUILD_TYPE=Release -DTd_DIR=<full path to TdCloud sources>/tdlib/lib/cmake/Td ..
 $ cmake --build .
 ```
+### Linux(Ubuntu 22.04)
+```
+<Enter TdCloud directory>
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ../td
+$ cmake --build . --target install
+$ cd ../cpp
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release -DTd_DIR=<full path to TdCloud sources>/tdlib/lib/cmake/Td ..
+$ cmake --build .
+```
 ## TODO
 - [ ] Improve the build time `cmake --build .`
 - [ ] Add build scheme for other platforms
